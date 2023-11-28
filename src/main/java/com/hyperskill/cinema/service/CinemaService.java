@@ -10,4 +10,5 @@ public interface CinemaService {
     int getRowQuantity();
     int getColumnQuantity();
     List<Seat> getAllSeats();
+    Seat getSeatInfo(int row, int column);
 }
