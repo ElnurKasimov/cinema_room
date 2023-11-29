@@ -12,16 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CinemaController {
     private final CinemaService cinemaService;
-    private final Cinema cinema = new Cinema(9, 9);
 
     public CinemaController(CinemaService cinemaService) {
         this.cinemaService = cinemaService;
     }
 
     @GetMapping("/seats")
-    String getAllSeats() throws JsonProcessingException {
+    String getCinema() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(cinema);
+        return objectMapper.writeValueAsString(cinemaService.getCinemaInfo());
     }
     @GetMapping("/seats/{row}/{column}")
     String getSeatInfo(@PathVariable int row, @PathVariable int column) throws JsonProcessingException {
