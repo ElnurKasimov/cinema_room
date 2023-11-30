@@ -2,16 +2,17 @@ package com.hyperskill.cinema.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hyperskill.cinema.dto.CinemaResponse;
 import com.hyperskill.cinema.dto.SeatResponse;
 import com.hyperskill.cinema.exception.InvalidBoundaryException;
 import com.hyperskill.cinema.exception.PurchasedException;
 import com.hyperskill.cinema.model.Cinema;
 import com.hyperskill.cinema.model.PurchaseRequest;
-import com.hyperskill.cinema.model.Seat;
 import com.hyperskill.cinema.service.CinemaService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CinemaController {
@@ -22,8 +23,13 @@ public class CinemaController {
     }
 
     @GetMapping("/seats")
-    CinemaResponse getCinema() throws JsonProcessingException {
+    CinemaResponse getCinemaInfo() throws JsonProcessingException {
         return cinemaService.getCinemaInfo();
+    }
+
+    @GetMapping("/all-seats")
+    Cinema getCinema() throws JsonProcessingException {
+        return cinemaService.readCinema();
     }
     @PostMapping("/purchase")
     SeatResponse getSeatInfo(@RequestBody PurchaseRequest purchaseRequest) throws JsonProcessingException {
@@ -36,7 +42,6 @@ public class CinemaController {
         } else if (cinemaService.isSeatPurchased(row, column)) {
             throw new PurchasedException("The ticket has been already purchased!");
             } else {
-
             return cinemaService.markPlaceAsPurchased(row, column);
         }
     }

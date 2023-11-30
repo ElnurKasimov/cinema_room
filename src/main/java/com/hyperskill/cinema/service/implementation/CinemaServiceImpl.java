@@ -6,6 +6,8 @@ import com.hyperskill.cinema.dto.CinemaResponse;
 import com.hyperskill.cinema.dto.CinemaTransformer;
 import com.hyperskill.cinema.dto.SeatResponse;
 import com.hyperskill.cinema.dto.SeatTransformer;
+import com.hyperskill.cinema.exception.EntityNotFoundException;
+import com.hyperskill.cinema.exception.InvalidBoundaryException;
 import com.hyperskill.cinema.model.Cinema;
 import com.hyperskill.cinema.model.Seat;
 import com.hyperskill.cinema.repository.CinemaRepository;
@@ -13,6 +15,7 @@ import com.hyperskill.cinema.service.CinemaService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -29,24 +32,31 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public CinemaResponse getCinemaInfo() {
-        Cinema cinemaEntity = cinemaRepository.getCinema();
-        cinemaEntity.setSeats(cinemaEntity.getSeats().stream()
+        List<SeatResponse> seats = cinemaRepository.getCinema().getSeats().stream()
                 .filter(seat -> !seat.isPurchased())
-                .toList());
-        return cinemaTransformer.fromEntity(cinemaEntity);
+                .map(seatTransformer::fromEntity)
+                .toList();
+        return new CinemaResponse(cinemaRepository.getCinema().getRows(),
+                                  cinemaRepository.getCinema().getColumns(),
+                                  seats);
+    }
+
+    @Override
+    public Cinema readCinema() {
+        return cinemaRepository.getCinema();
     }
     @Override
-    public Seat getSeat(int row, int column) {
-        Cinema cinema = cinemaRepository.getCinema();
-        return cinema.getSeats().stream()
-                .filter(seat -> seat.getRow() == row && seat.getColumn() == column)
-                .findFirst()
-                .orElse(null);
+    public Seat readSeat(int row, int column) {
+        Optional<Seat> seat = cinemaRepository.getSeat(row, column);
+        if(seat.isEmpty()) {
+            throw new EntityNotFoundException("There is no such place.");
+        }
+        return seat.get();
     }
 
     @Override
     public boolean isSeatPurchased(int row, int column) {
-        return cinemaRepository.getSeat(row, column).isPurchased();
+        return readSeat(row, column).isPurchased();
     }
 
     @Override
@@ -65,17 +75,17 @@ public class CinemaServiceImpl implements CinemaService {
         return result;
     }
 
-    @Override
-    public void markPlaceAsAvailable(int row, int column) {
-        Cinema cinema = cinemaRepository.getCinema();
-        List<Seat> seats = cinema.getSeats();
-        for (Seat seat : seats) {
-            if (seat.getRow() == row && seat.getColumn() == column) {
-                seat.setPurchased(false);
-            }
-        }
-        cinema.setSeats(seats);
-        cinemaRepository.updateCinema(cinema);
-    }
+//    @Override
+//    public void markPlaceAsAvailable(int row, int column) {
+//        Cinema cinema = cinemaRepository.getCinema();
+//        List<Seat> seats = cinema.getSeats();
+//        for (Seat seat : seats) {
+//            if (seat.getRow() == row && seat.getColumn() == column) {
+//                seat.setPurchased(false);
+//            }
+//        }
+//        cinema.setSeats(seats);
+//        cinemaRepository.updateCinema(cinema);
+//    }
 
 }

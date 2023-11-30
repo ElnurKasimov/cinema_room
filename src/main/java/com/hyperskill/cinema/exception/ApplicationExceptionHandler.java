@@ -26,4 +26,11 @@ public class ApplicationExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<CustomErrorMessage> handleEntityNotFound(
+            EntityNotFoundException e, WebRequest request) {
+        CustomErrorMessage body = new CustomErrorMessage(e.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
 }

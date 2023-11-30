@@ -13,10 +13,10 @@ public class CinemaTransformer {
         this.seatTransformer = seatTransformer;
     }
 
-    public CinemaResponse fromEntity(Cinema cinema) {
-        List<SeatResponse> seats = cinema.getSeats().stream()
-                .map(this.seatTransformer::fromEntity)
-                .toList();
-        return new CinemaResponse(cinema.getRows(), cinema.getColumns(), seats);
-    }
+//    public CinemaResponse fromEntity(Cinema cinema) {
+//        List<SeatResponse> seats = cinema.getSeats().stream()
+//                .map(this.seatTransformer::fromEntity)
+//                .toList();
+//        return new CinemaResponse(cinema.getRows(), cinema.getColumns(), seats);
+//    }
 }

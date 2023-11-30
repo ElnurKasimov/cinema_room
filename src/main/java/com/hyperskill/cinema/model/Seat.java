@@ -45,4 +45,14 @@ public class Seat {
     public void setPurchased(boolean purchased) {
         this.purchased = purchased;
     }
+
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "row=" + row +
+                ", column=" + column +
+                ", price=" + price +
+                ", purchased=" + purchased +
+                '}';
+    }
 }

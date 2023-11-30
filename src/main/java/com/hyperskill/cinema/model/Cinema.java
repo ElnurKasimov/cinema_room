@@ -43,4 +43,13 @@ public class Cinema {
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
     }
+
+    @Override
+    public String toString() {
+        return "Cinema{" +
+                "rows=" + rows +
+                ", columns=" + columns +
+                ", seats=" + seats +
+                '}';
+    }
 }

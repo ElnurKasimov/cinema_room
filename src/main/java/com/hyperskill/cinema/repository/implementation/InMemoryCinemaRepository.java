@@ -6,6 +6,7 @@ import com.hyperskill.cinema.repository.CinemaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class InMemoryCinemaRepository  implements CinemaRepository {
@@ -17,13 +18,10 @@ public class InMemoryCinemaRepository  implements CinemaRepository {
     }
 
     @Override
-    public Seat getSeat(int row, int column) {
-        for (Seat seat : cinema.getSeats()) {
-            if(seat.getRow() == row && seat.getColumn() == column) {
-                return seat;
-            }
-        }
-        return null;
+    public Optional<Seat> getSeat(int row, int column) {
+        return cinema.getSeats().stream()
+                .filter(seat -> seat.getRow() == row && seat.getColumn() == column)
+                .findFirst();
     }
 
     @Override

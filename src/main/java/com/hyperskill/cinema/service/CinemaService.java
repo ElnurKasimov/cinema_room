@@ -7,14 +7,14 @@ import com.hyperskill.cinema.dto.SeatResponse;
 import com.hyperskill.cinema.model.Cinema;
 import com.hyperskill.cinema.model.Seat;
 
-import java.util.List;
-
 public interface CinemaService {
     CinemaResponse getCinemaInfo();
-    Seat getSeat(int row, int column);
+    Cinema readCinema();
+    Seat readSeat(int row, int column);
     boolean isSeatPurchased(int row, int column);
 
     public SeatResponse markPlaceAsPurchased(int row, int column);
-    public void markPlaceAsAvailable(int row, int column);
+
+    //public void markPlaceAsAvailable(int row, int column);
 
 }
