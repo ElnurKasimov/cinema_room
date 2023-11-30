@@ -15,12 +15,15 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(InvalidBoundaryException.class)
     public ResponseEntity<CustomErrorMessage> handleInvalidRowOrColumnNumber(
             InvalidBoundaryException e, WebRequest request) {
-
-        CustomErrorMessage body = new CustomErrorMessage(
-                HttpStatus.BAD_REQUEST.value(),
-                LocalDateTime.now(),
-                e.getMessage(),
-                request.getDescription(false));
+        CustomErrorMessage body = new CustomErrorMessage(e.getMessage());
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(PurchasedException.class)
+    public ResponseEntity<CustomErrorMessage> handlePurchased(
+            PurchasedException e, WebRequest request) {
+        CustomErrorMessage body = new CustomErrorMessage(e.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
 }

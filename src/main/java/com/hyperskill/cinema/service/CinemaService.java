@@ -9,7 +9,10 @@ import com.hyperskill.cinema.model.Seat;
 import java.util.List;
 
 public interface CinemaService {
-
     CinemaResponse getCinemaInfo();
-    Seat getSeatInfo(int row, int column);
+    Seat getSeat(int row, int column);
+    boolean isSeatPurchased(int row, int column);
+
+
+
 }
