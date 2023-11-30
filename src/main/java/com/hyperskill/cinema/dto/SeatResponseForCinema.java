@@ -6,9 +6,12 @@ public class SeatResponseForCinema {
     public int row;
     public int column;
 
+    public int price;
+
     public SeatResponseForCinema (Seat seat) {
         this.row = seat.getRow();
         this.column = seat.getColumn();
+        this.price = seat.getPrice();
     }
 
     public int getRow() {
@@ -25,5 +28,13 @@ public class SeatResponseForCinema {
 
     public void setColumn(int column) {
         this.column = column;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

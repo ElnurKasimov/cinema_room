@@ -6,13 +6,13 @@ public class Seat {
     private  int column;
     private int price;
 
-
-    //private boolean available;
+    private boolean purchased;
 
     public Seat(int row, int column) {
         this.row = row;
         this.column = column;
         this.price = row <= 4 ? 10 : 8;
+        this.purchased = false;
     }
 
     public int getRow() {
@@ -38,11 +38,11 @@ public class Seat {
         this.price = price;
     }
 
-//    public boolean isAvailable() {
-//        return available;
-//    }
-//
-//    public void setAvailable(boolean available) {
-//        this.available = available;
-//    }
+    public boolean isPurchased() {
+        return purchased;
+    }
+
+    public void setPurchased(boolean purchased) {
+        this.purchased = purchased;
+    }
 }
