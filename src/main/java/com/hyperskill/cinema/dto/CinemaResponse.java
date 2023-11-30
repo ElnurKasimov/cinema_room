@@ -1,16 +1,13 @@
 package com.hyperskill.cinema.dto;
 
-import com.hyperskill.cinema.model.Cinema;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CinemaResponse {
     private int rows;
     private int columns;
-    private List<SeatResponseForCinema> seats;
+    private List<SeatResponse> seats;
 
-    public CinemaResponse(int rows, int columns, List<SeatResponseForCinema> seats) {
+    public CinemaResponse(int rows, int columns, List<SeatResponse> seats) {
         this.rows = rows;
         this.columns = columns;
         this.seats = seats;
@@ -32,11 +29,11 @@ public class CinemaResponse {
         this.columns = columns;
     }
 
-    public List<SeatResponseForCinema> getSeats() {
+    public List<SeatResponse> getSeats() {
         return seats;
     }
 
-    public void setSeats(List<SeatResponseForCinema> seats) {
+    public void setSeats(List<SeatResponse> seats) {
         this.seats = seats;
     }
 }

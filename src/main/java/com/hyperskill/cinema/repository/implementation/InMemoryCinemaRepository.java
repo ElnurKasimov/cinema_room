@@ -17,23 +17,6 @@ public class InMemoryCinemaRepository  implements CinemaRepository {
     }
 
     @Override
-    public Cinema markPlaceAsPurchased(int row, int column) {
-        List<Seat> seats = cinema.getSeats();
-        for (Seat seat : seats) {
-            if (seat.getRow() == row && seat.getColumn() == column) {
-                seat.setPurchased(true);
-            }
-        }
-        cinema.setSeats(seats);
-        return cinema;
-    }
-
-    @Override
-    public Cinema markPlaceAsAvailable(int row, int column) {
-        return null;
-    }
-
-    @Override
     public Seat getSeat(int row, int column) {
         for (Seat seat : cinema.getSeats()) {
             if(seat.getRow() == row && seat.getColumn() == column) {
@@ -41,6 +24,11 @@ public class InMemoryCinemaRepository  implements CinemaRepository {
             }
         }
         return null;
+    }
+
+    @Override
+    public void updateCinema(Cinema cinema) {
+        this.cinema = cinema;
     }
 
 

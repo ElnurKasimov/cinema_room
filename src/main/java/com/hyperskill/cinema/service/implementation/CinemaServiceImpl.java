@@ -4,9 +4,8 @@ package com.hyperskill.cinema.service.implementation;
 
 import com.hyperskill.cinema.dto.CinemaResponse;
 import com.hyperskill.cinema.dto.CinemaTransformer;
-import com.hyperskill.cinema.dto.SeatResponseForCinema;
+import com.hyperskill.cinema.dto.SeatResponse;
 import com.hyperskill.cinema.dto.SeatTransformer;
-import com.hyperskill.cinema.exception.InvalidBoundaryException;
 import com.hyperskill.cinema.model.Cinema;
 import com.hyperskill.cinema.model.Seat;
 import com.hyperskill.cinema.repository.CinemaRepository;
@@ -14,7 +13,6 @@ import com.hyperskill.cinema.service.CinemaService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -39,8 +37,8 @@ public class CinemaServiceImpl implements CinemaService {
     }
     @Override
     public Seat getSeat(int row, int column) {
-        Cinema cinemaEntity = cinemaRepository.getCinema();
-        return cinemaEntity.getSeats().stream()
+        Cinema cinema = cinemaRepository.getCinema();
+        return cinema.getSeats().stream()
                 .filter(seat -> seat.getRow() == row && seat.getColumn() == column)
                 .findFirst()
                 .orElse(null);
@@ -48,6 +46,36 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public boolean isSeatPurchased(int row, int column) {
-        return false;
+        return cinemaRepository.getSeat(row, column).isPurchased();
     }
+
+    @Override
+    public SeatResponse markPlaceAsPurchased(int row, int column) {
+        SeatResponse result = null;
+        Cinema cinema = cinemaRepository.getCinema();
+        List<Seat> seats = cinema.getSeats();
+        for (Seat seat : seats) {
+            if (seat.getRow() == row && seat.getColumn() == column) {
+                seat.setPurchased(true);
+                result = new SeatResponse(seat);
+            }
+        }
+        cinema.setSeats(seats);
+        cinemaRepository.updateCinema(cinema);
+        return result;
+    }
+
+    @Override
+    public void markPlaceAsAvailable(int row, int column) {
+        Cinema cinema = cinemaRepository.getCinema();
+        List<Seat> seats = cinema.getSeats();
+        for (Seat seat : seats) {
+            if (seat.getRow() == row && seat.getColumn() == column) {
+                seat.setPurchased(false);
+            }
+        }
+        cinema.setSeats(seats);
+        cinemaRepository.updateCinema(cinema);
+    }
+
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SeatTransformer {
 
-    public SeatResponseForCinema fromEntity(Seat seat) {
-        return new SeatResponseForCinema(seat);
+    public SeatResponse fromEntity(Seat seat) {
+        return new SeatResponse(seat);
     }
 }

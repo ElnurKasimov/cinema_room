@@ -4,6 +4,7 @@ package com.hyperskill.cinema.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hyperskill.cinema.dto.CinemaResponse;
+import com.hyperskill.cinema.dto.SeatResponse;
 import com.hyperskill.cinema.exception.InvalidBoundaryException;
 import com.hyperskill.cinema.exception.PurchasedException;
 import com.hyperskill.cinema.model.Cinema;
@@ -25,7 +26,7 @@ public class CinemaController {
         return cinemaService.getCinemaInfo();
     }
     @PostMapping("/purchase")
-    Seat getSeatInfo(@RequestBody PurchaseRequest purchaseRequest) throws JsonProcessingException {
+    SeatResponse getSeatInfo(@RequestBody PurchaseRequest purchaseRequest) throws JsonProcessingException {
         int maxRow = cinemaService.getCinemaInfo().getRows();
         int maxColumn = cinemaService.getCinemaInfo().getColumns();
         int row = purchaseRequest.getRow();
@@ -36,7 +37,7 @@ public class CinemaController {
             throw new PurchasedException("The ticket has been already purchased!");
             } else {
 
-            return cinemaService.mark(row, column);
+            return cinemaService.markPlaceAsPurchased(row, column);
         }
     }
 }

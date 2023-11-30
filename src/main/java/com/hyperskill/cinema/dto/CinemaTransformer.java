@@ -14,7 +14,7 @@ public class CinemaTransformer {
     }
 
     public CinemaResponse fromEntity(Cinema cinema) {
-        List<SeatResponseForCinema> seats = cinema.getSeats().stream()
+        List<SeatResponse> seats = cinema.getSeats().stream()
                 .map(this.seatTransformer::fromEntity)
                 .toList();
         return new CinemaResponse(cinema.getRows(), cinema.getColumns(), seats);

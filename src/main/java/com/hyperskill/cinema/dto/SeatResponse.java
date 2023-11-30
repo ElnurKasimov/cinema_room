@@ -2,13 +2,13 @@ package com.hyperskill.cinema.dto;
 
 import com.hyperskill.cinema.model.Seat;
 
-public class SeatResponseForCinema {
+public class SeatResponse {
     public int row;
     public int column;
 
     public int price;
 
-    public SeatResponseForCinema (Seat seat) {
+    public SeatResponse(Seat seat) {
         this.row = seat.getRow();
         this.column = seat.getColumn();
         this.price = seat.getPrice();

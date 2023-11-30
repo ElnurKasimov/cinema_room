@@ -3,6 +3,7 @@ package com.hyperskill.cinema.service;
 
 
 import com.hyperskill.cinema.dto.CinemaResponse;
+import com.hyperskill.cinema.dto.SeatResponse;
 import com.hyperskill.cinema.model.Cinema;
 import com.hyperskill.cinema.model.Seat;
 
@@ -13,6 +14,7 @@ public interface CinemaService {
     Seat getSeat(int row, int column);
     boolean isSeatPurchased(int row, int column);
 
-
+    public SeatResponse markPlaceAsPurchased(int row, int column);
+    public void markPlaceAsAvailable(int row, int column);
 
 }
