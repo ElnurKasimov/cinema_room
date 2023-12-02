@@ -1,10 +1,14 @@
 package com.hyperskill.cinema.model;
 
 
+import java.util.UUID;
+
 public class Seat {
     private int row;
     private  int column;
     private int price;
+
+    private UUID token;
 
     private boolean purchased;
 
@@ -13,6 +17,7 @@ public class Seat {
         this.column = column;
         this.price = row <= 4 ? 10 : 8;
         this.purchased = false;
+        this.token = null;
     }
 
     public int getRow() {
@@ -44,6 +49,14 @@ public class Seat {
 
     public void setPurchased(boolean purchased) {
         this.purchased = purchased;
+    }
+
+    public UUID getToken() {
+        return token;
+    }
+
+    public void setToken(UUID token) {
+        this.token = token;
     }
 
     @Override
