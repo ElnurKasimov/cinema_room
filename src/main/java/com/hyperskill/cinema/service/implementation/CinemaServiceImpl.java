@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -33,7 +34,7 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public CinemaResponse getCinemaInfo() {
         List<SeatResponse> seats = cinemaRepository.getCinema().getSeats().stream()
-                .filter(seat -> !seat.isPurchased())
+                .filter(seat -> seat.getToken() == null)
                 .map(seatTransformer::fromEntity)
                 .toList();
         return new CinemaResponse(cinemaRepository.getCinema().getRows(),
@@ -56,24 +57,25 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public boolean isSeatPurchased(int row, int column) {
-        return readSeat(row, column).isPurchased();
+        UUID token = readSeat(row, column).getToken();
+        return token == null;
     }
 
-    @Override
-    public SeatResponse markPlaceAsPurchased(int row, int column) {
-        SeatResponse result = null;
-        Cinema cinema = cinemaRepository.getCinema();
-        List<Seat> seats = cinema.getSeats();
-        for (Seat seat : seats) {
-            if (seat.getRow() == row && seat.getColumn() == column) {
-                seat.setPurchased(true);
-                result = new SeatResponse(seat);
-            }
-        }
-        cinema.setSeats(seats);
-        cinemaRepository.updateCinema(cinema);
-        return result;
-    }
+ //   @Override
+//    public SeatResponse markPlaceAsPurchased(int row, int column) {
+//        SeatResponse result = null;
+//        Cinema cinema = cinemaRepository.getCinema();
+//        List<Seat> seats = cinema.getSeats();
+//        for (Seat seat : seats) {
+//            if (seat.getRow() == row && seat.getColumn() == column) {
+//                seat.setPurchased(true);
+//                result = new SeatResponse(seat);
+//            }
+//        }
+//        cinema.setSeats(seats);
+//        cinemaRepository.updateCinema(cinema);
+//        return result;
+//    }
 
 //    @Override
 //    public void markPlaceAsAvailable(int row, int column) {

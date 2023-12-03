@@ -10,13 +10,12 @@ public class Seat {
 
     private UUID token;
 
-    private boolean purchased;
+
 
     public Seat(int row, int column) {
         this.row = row;
         this.column = column;
         this.price = row <= 4 ? 10 : 8;
-        this.purchased = false;
         this.token = null;
     }
 
@@ -43,14 +42,6 @@ public class Seat {
         this.price = price;
     }
 
-    public boolean isPurchased() {
-        return purchased;
-    }
-
-    public void setPurchased(boolean purchased) {
-        this.purchased = purchased;
-    }
-
     public UUID getToken() {
         return token;
     }
@@ -62,10 +53,10 @@ public class Seat {
     @Override
     public String toString() {
         return "Seat{" +
-                "row=" + row +
-                ", column=" + column +
-                ", price=" + price +
-                ", purchased=" + purchased +
+                "row =" + row +
+                ", column =" + column +
+                ", price =" + price +
+                ", token =" + token.toString() +
                 '}';
     }
 }

@@ -13,7 +13,7 @@ public interface CinemaService {
     Seat readSeat(int row, int column);
     boolean isSeatPurchased(int row, int column);
 
-    public SeatResponse markPlaceAsPurchased(int row, int column);
+    //public SeatResponse markPlaceAsPurchased(int row, int column);
 
     //public void markPlaceAsAvailable(int row, int column);
 
