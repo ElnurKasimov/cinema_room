@@ -8,6 +8,8 @@ import com.hyperskill.cinema.dto.SeatResponse;
 import com.hyperskill.cinema.model.Cinema;
 import com.hyperskill.cinema.model.Seat;
 
+import java.util.Optional;
+
 public interface CinemaService {
     CinemaResponse getCinemaInfo();
     Cinema readCinema();
@@ -15,6 +17,8 @@ public interface CinemaService {
     boolean isSeatPurchased(int row, int column);
 
     public PurchaseResponse markPlaceAsPurchased(int row, int column);
+
+    public Optional<Seat> getSeatByToken(String token);
 
     //public void markPlaceAsAvailable(int row, int column);
 

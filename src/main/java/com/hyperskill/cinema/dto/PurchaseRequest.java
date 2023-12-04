@@ -1,4 +1,4 @@
-package com.hyperskill.cinema.model;
+package com.hyperskill.cinema.dto;
 
 public class PurchaseRequest {
     private int row;
@@ -8,6 +8,8 @@ public class PurchaseRequest {
         this.row = row;
         this.column = column;
     }
+
+    public PurchaseRequest() {}
 
     public int getRow() {
         return row;

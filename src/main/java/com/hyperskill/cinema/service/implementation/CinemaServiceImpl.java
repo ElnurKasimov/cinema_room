@@ -67,11 +67,20 @@ public class CinemaServiceImpl implements CinemaService {
             if (seat.getRow() == row && seat.getColumn() == column) {
                 seat.setToken(UUID.randomUUID());
                 result = new PurchaseResponse(seat);
+                break;
             }
         }
         cinema.setSeats(seats);
         cinemaRepository.updateCinema(cinema);
         return result;
+    }
+
+    @Override
+    public Optional<Seat> getSeatByToken(String token) {
+        UUID tokenUUID = UUID.fromString(token);
+        return cinemaRepository.getCinema().getSeats().stream()
+                .filter(s -> s.getToken() == tokenUUID)
+                .findFirst();
     }
 
 //    @Override
