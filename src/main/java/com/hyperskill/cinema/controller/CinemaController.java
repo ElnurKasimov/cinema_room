@@ -41,7 +41,7 @@ public class CinemaController {
         } else if (cinemaService.isSeatPurchased(row, column)) {
             throw new PurchasedException("The ticket has been already purchased!");
             } else {
-            return cinemaService.markPlaceAsPurchased(row, column);
+            return cinemaService.markSeatAsPurchased(row, column);
         }
     }
 
@@ -52,7 +52,9 @@ public class CinemaController {
         if (seat.isEmpty()) {
             throw new EntityNotFoundException("Wrong token!");
         } else {
-            return new ReturnResponse(seat.get());
+            ReturnResponse result = new ReturnResponse(seat.get());
+            cinemaService.markSeatAsAvailable(seat.get());
+            return result;
         }
     }
 }

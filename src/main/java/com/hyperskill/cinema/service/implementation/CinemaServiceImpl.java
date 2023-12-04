@@ -59,7 +59,7 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public PurchaseResponse markPlaceAsPurchased(int row, int column) {
+    public PurchaseResponse markSeatAsPurchased(int row, int column) {
         PurchaseResponse result = null;
         Cinema cinema = cinemaRepository.getCinema();
         List<Seat> seats = cinema.getSeats();
@@ -79,21 +79,21 @@ public class CinemaServiceImpl implements CinemaService {
     public Optional<Seat> getSeatByToken(String token) {
         UUID tokenUUID = UUID.fromString(token);
         return cinemaRepository.getCinema().getSeats().stream()
-                .filter(s -> s.getToken() == tokenUUID)
+                .filter(s -> tokenUUID.equals(s.getToken()))
                 .findFirst();
     }
 
-//    @Override
-//    public void markPlaceAsAvailable(int row, int column) {
-//        Cinema cinema = cinemaRepository.getCinema();
-//        List<Seat> seats = cinema.getSeats();
-//        for (Seat seat : seats) {
-//            if (seat.getRow() == row && seat.getColumn() == column) {
-//                seat.setPurchased(false);
-//            }
-//        }
-//        cinema.setSeats(seats);
-//        cinemaRepository.updateCinema(cinema);
-//    }
+    @Override
+    public void markSeatAsAvailable(Seat seat) {
+        Cinema cinema = cinemaRepository.getCinema();
+        List<Seat> seats = cinema.getSeats();
+        for (Seat seatFromDB : seats) {
+            if (seat.equals(seatFromDB)) {
+                seatFromDB.setToken(null);
+            }
+        }
+        cinema.setSeats(seats);
+        cinemaRepository.updateCinema(cinema);
+    }
 
 }
