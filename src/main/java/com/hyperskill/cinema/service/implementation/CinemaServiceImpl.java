@@ -2,10 +2,7 @@ package com.hyperskill.cinema.service.implementation;
 
 
 
-import com.hyperskill.cinema.dto.CinemaResponse;
-import com.hyperskill.cinema.dto.CinemaTransformer;
-import com.hyperskill.cinema.dto.SeatResponse;
-import com.hyperskill.cinema.dto.SeatTransformer;
+import com.hyperskill.cinema.dto.*;
 import com.hyperskill.cinema.exception.EntityNotFoundException;
 import com.hyperskill.cinema.exception.InvalidBoundaryException;
 import com.hyperskill.cinema.model.Cinema;
@@ -58,24 +55,24 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public boolean isSeatPurchased(int row, int column) {
         UUID token = readSeat(row, column).getToken();
-        return token == null;
+        return token != null;
     }
 
- //   @Override
-//    public SeatResponse markPlaceAsPurchased(int row, int column) {
-//        SeatResponse result = null;
-//        Cinema cinema = cinemaRepository.getCinema();
-//        List<Seat> seats = cinema.getSeats();
-//        for (Seat seat : seats) {
-//            if (seat.getRow() == row && seat.getColumn() == column) {
-//                seat.setPurchased(true);
-//                result = new SeatResponse(seat);
-//            }
-//        }
-//        cinema.setSeats(seats);
-//        cinemaRepository.updateCinema(cinema);
-//        return result;
-//    }
+    @Override
+    public PurchaseResponse markPlaceAsPurchased(int row, int column) {
+        PurchaseResponse result = null;
+        Cinema cinema = cinemaRepository.getCinema();
+        List<Seat> seats = cinema.getSeats();
+        for (Seat seat : seats) {
+            if (seat.getRow() == row && seat.getColumn() == column) {
+                seat.setToken(UUID.randomUUID());
+                result = new PurchaseResponse(seat);
+            }
+        }
+        cinema.setSeats(seats);
+        cinemaRepository.updateCinema(cinema);
+        return result;
+    }
 
 //    @Override
 //    public void markPlaceAsAvailable(int row, int column) {

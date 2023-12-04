@@ -50,13 +50,13 @@ public class Seat {
         this.token = token;
     }
 
-    @Override
-    public String toString() {
-        return "Seat{" +
-                "row =" + row +
-                ", column =" + column +
-                ", price =" + price +
-                ", token =" + token.toString() +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Seat{" +
+//                "row =" + row +
+//                ", column =" + column +
+//                ", price =" + price +
+//                ", token =" + token.toString() +
+//                '}';
+//    }
 }
