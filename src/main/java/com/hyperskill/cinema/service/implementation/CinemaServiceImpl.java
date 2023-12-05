@@ -98,8 +98,20 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public StatisticResponse getStats() {
-
-        return null;
+        Cinema cinema = cinemaRepository.getCinema();
+        int purchased = 0;
+        int available = 0;
+        int income = 0;
+        List<Seat> seats = cinema.getSeats();
+        for (Seat seat : seats) {
+            if (seat.getToken() != null) {
+                purchased++;
+                income += seat.getPrice();
+            } else {
+                available++;
+            }
+        }
+        return new StatisticResponse(income, available, purchased);
     }
 
 }

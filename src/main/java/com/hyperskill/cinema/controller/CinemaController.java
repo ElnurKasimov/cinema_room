@@ -60,7 +60,7 @@ public class CinemaController {
     }
 
     @GetMapping("/stats")
-    StatisticResponse getStatistic(@RequestParam String password) {
+    StatisticResponse getStatistic(@RequestParam(required = false) String password) {
         if ("super_secret".equals(password)) {
             return cinemaService.getStats();
         } else {
