@@ -3,6 +3,7 @@ package com.hyperskill.cinema.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hyperskill.cinema.dto.*;
+import com.hyperskill.cinema.exception.AuthorizationException;
 import com.hyperskill.cinema.exception.EntityNotFoundException;
 import com.hyperskill.cinema.exception.InvalidBoundaryException;
 import com.hyperskill.cinema.exception.PurchasedException;
@@ -55,6 +56,15 @@ public class CinemaController {
             ReturnResponse result = new ReturnResponse(seat.get());
             cinemaService.markSeatAsAvailable(seat.get());
             return result;
+        }
+    }
+
+    @GetMapping("/stats")
+    StatisticResponse getStatistic(@RequestParam String password) {
+        if ("super_secret".equals(password)) {
+            return cinemaService.getStats();
+        } else {
+            throw new AuthorizationException("The password is wrong!");
         }
     }
 }

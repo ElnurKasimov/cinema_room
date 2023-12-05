@@ -4,6 +4,7 @@ package com.hyperskill.cinema.service;
 
 import com.hyperskill.cinema.dto.CinemaResponse;
 import com.hyperskill.cinema.dto.PurchaseResponse;
+import com.hyperskill.cinema.dto.StatisticResponse;
 import com.hyperskill.cinema.model.Cinema;
 import com.hyperskill.cinema.model.Seat;
 
@@ -20,5 +21,7 @@ public interface CinemaService {
     public Optional<Seat> getSeatByToken(String token);
 
     public void markSeatAsAvailable(Seat  seat);
+
+    public StatisticResponse getStats();
 
 }

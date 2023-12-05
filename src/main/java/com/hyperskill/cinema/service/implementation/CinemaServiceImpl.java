@@ -96,4 +96,10 @@ public class CinemaServiceImpl implements CinemaService {
         cinemaRepository.updateCinema(cinema);
     }
 
+    @Override
+    public StatisticResponse getStats() {
+
+        return null;
+    }
+
 }
