@@ -37,7 +37,7 @@ public class ApplicationExceptionHandler {
     public ResponseEntity<CustomErrorMessage> handleAuthorization(
             AuthorizationException e, WebRequest request) {
         CustomErrorMessage body = new CustomErrorMessage(e.getMessage());
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
     }
 
 }

@@ -1,10 +1,7 @@
 package com.hyperskill.cinema.service.implementation;
 
-
-
 import com.hyperskill.cinema.dto.*;
 import com.hyperskill.cinema.exception.EntityNotFoundException;
-import com.hyperskill.cinema.exception.InvalidBoundaryException;
 import com.hyperskill.cinema.model.Cinema;
 import com.hyperskill.cinema.model.Seat;
 import com.hyperskill.cinema.repository.CinemaRepository;
